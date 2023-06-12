@@ -4,9 +4,10 @@ import (
 	"github.com/saeedKarami/golang-web-api/api"
 	"github.com/saeedKarami/golang-web-api/config"
 	"github.com/saeedKarami/golang-web-api/data/cache"
-	"github.com/saeedKarami/golang-web-api/data/db"
-	"github.com/saeedKarami/golang-web-api/data/db/migrations"
-	"github.com/saeedKarami/golang-web-api/pkg/logging"
+	// "github.com/saeedKarami/golang-web-api/data/cache"
+	// "github.com/saeedKarami/golang-web-api/data/db"
+	// "github.com/saeedKarami/golang-web-api/data/db/migrations"
+	// "github.com/saeedKarami/golang-web-api/pkg/logging"
 )
 
 // @securityDefinitions.apikey AuthBearer
