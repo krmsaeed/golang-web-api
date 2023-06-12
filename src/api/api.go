@@ -2,9 +2,9 @@ package api
 
 import (
 	"fmt"
-	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/saeedKarami/golang-web-api/api/routers"
 	"github.com/saeedKarami/golang-web-api/config"
 )
 
@@ -15,16 +15,16 @@ func InitServer() {
 
 	v1 := r.Group("/api/v1")
 	{
-		v1.GET("/health", func(c *gin.Context) {
-			c.JSON(http.StatusOK, "Working")
-			return
-		})
+		health := v1.Group("/health")
+		test_router := v1.Group("/test")
+		routers.TestRouter(test_router)
+		routers.Health(health)
 	}
-	// server := &http.Server{
-	// 	Handler:     r,
-	// 	Addr:        fmt.Sprintf(":%s", cfg.Server.ExternalPort),
-	// 	ReadTimeout: time.Second * 10,
-	// }
-	// server.ListenAndServe()
-	r.Run(fmt.Sprintf(":%s", cfg.Server.ExternalPort))
+	v2 := r.Group("/api/v2")
+	{
+		health := v2.Group("/health")
+		routers.Health(health)
+
+	}
+	r.Run(fmt.Sprintf("%s", cfg.Server.Port))
 }

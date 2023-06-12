@@ -6,13 +6,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type HealthHandler struct{}
+type HealthHandler struct {
+}
 
 func NewHealthHandler() *HealthHandler {
 	return &HealthHandler{}
 }
 
-func (h *HealthHandler) Health(c *gin.RouterGroup) {
-	c.JSON(http.StatusOK, "working")
+func (h *HealthHandler) Health(c *gin.Context) {
+	c.JSON(http.StatusOK, "Working!")
 	return
 }
