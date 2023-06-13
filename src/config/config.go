@@ -14,20 +14,24 @@ type Config struct {
 	Postgres PostgresConfig
 	Redis    RedisConfig
 	Password PasswordConfig
+	Cors     CorsConfig
 }
 
 type ServerConfig struct {
 	Port    string
-	runMode string
+	RunMode string
 }
 
 type PostgresConfig struct {
-	Host     string
-	Port     string
-	User     string
-	Password string
-	DbName   string
-	SSLMode  bool
+	Host            string
+	Port            string
+	User            string
+	Password        string
+	DbName          string
+	SSLMode         string
+	MaxIdleConns    int
+	MaxOpenConns    int
+	ConnMaxLifetime time.Duration
 }
 
 type RedisConfig struct {
@@ -50,6 +54,10 @@ type PasswordConfig struct {
 	MaxLength        int
 	IncludeUppercase bool
 	IncludeLowercase bool
+}
+
+type CorsConfig struct {
+	AllowOrigins string
 }
 
 func GetConfig() *Config {
@@ -101,6 +109,6 @@ func getConfigPath(env string) string {
 	} else if env == "production" {
 		return "config/config-production"
 	} else {
-		return "config/config-development"
+		return "../config/config-development"
 	}
 }
