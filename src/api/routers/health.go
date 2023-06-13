@@ -2,7 +2,7 @@ package routers
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/saeedKarami/golang-web-api/api/handlers"
+	"github.com/krmsaeed/golang-web-api/api/handlers"
 )
 
 func Health(r *gin.RouterGroup) {

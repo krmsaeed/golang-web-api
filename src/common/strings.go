@@ -5,7 +5,7 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/saeedKarami/golang-web-api/config"
+	"github.com/krmsaeed/golang-web-api/config"
 )
 
 var (

@@ -2,7 +2,7 @@ package routers
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/saeedKarami/golang-web-api/api/handlers"
+	"github.com/krmsaeed/golang-web-api/api/handlers"
 )
 
 func TestRouter(r *gin.RouterGroup) {
@@ -22,8 +22,8 @@ func TestRouter(r *gin.RouterGroup) {
 	r.POST("/binder/query2", h.QueryBinder2)
 
 	r.POST("/binder/uri/:id/:name", h.UriBinder)
-	r.POST("/binder/form", h.FormBinder)
 	r.POST("/binder/body", h.BodyBinder)
+	r.POST("/binder/form", h.FormBinder)
 	r.POST("/binder/file", h.FileBinder)
 
 }

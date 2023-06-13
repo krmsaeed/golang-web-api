@@ -6,23 +6,21 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/validator/v10"
-	"github.com/saeedKarami/golang-web-api/api/routers"
-	validation "github.com/saeedKarami/golang-web-api/api/validations"
-	"github.com/saeedKarami/golang-web-api/config"
+	"github.com/krmsaeed/golang-web-api/api/middlewares"
+	"github.com/krmsaeed/golang-web-api/api/routers"
+	validation "github.com/krmsaeed/golang-web-api/api/validations"
+	"github.com/krmsaeed/golang-web-api/config"
 )
 
-func InitServer() {
-	cfg := config.GetConfig()
+func InitServer(cfg *config.Config) {
+
 	r := gin.New()
-
-	val, ok := binding.Validator.Engine().(*validator.Validate)
-	if ok {
-		val.RegisterValidation("mobile", validation.IranianMobileNumberValidator, true)
-		val.RegisterValidation("password", validation.PasswordValidator, true)
-	}
-
-	r.Use(gin.Logger(), gin.Recovery())
-
+	RegisterValidators()
+	r.Use(gin.Logger(), gin.Recovery() /*middlewares.TestMiddleware()*/, middlewares.LimitByRequest())
+	RegisterRoutes(r)
+	r.Run(fmt.Sprintf(":%s", cfg.Server.Port))
+}
+func RegisterRoutes(r *gin.Engine) {
 	api := r.Group("/api")
 
 	v1 := api.Group("/v1")
@@ -39,6 +37,12 @@ func InitServer() {
 		health := v2.Group("/health")
 		routers.Health(health)
 	}
+}
 
-	r.Run(fmt.Sprintf(":%s", cfg.Server.Port))
+func RegisterValidators() {
+	val, ok := binding.Validator.Engine().(*validator.Validate)
+	if ok {
+		val.RegisterValidation("mobile", validation.IranianMobileNumberValidator, true)
+		val.RegisterValidation("password", validation.PasswordValidator, true)
+	}
 }
